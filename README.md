@@ -3,8 +3,8 @@
 ## 1. Live URLs
 
 - **GitHub Repository**: `https://github.com/NeoGonsalves/lyftr-ai`
-- **Frontend**: `https://<your-frontend-url>` (e.g. Vercel / Render Static Site)
-- **Backend**: `https://<your-backend-url>` (e.g. Render Web Service / Railway)
+- **Frontend**: `https://<your-frontend-url>` (Vercel)
+- **Backend**: `https://lyftr-ai-backend-5adr.onrender.com`
 
 ### Quick Deployment Instructions
 
