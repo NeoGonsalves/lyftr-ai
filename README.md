@@ -2,10 +2,33 @@
 
 ## 1. Live URLs
 
-Not deployed by this repository. Before submitting, add the public URLs here:
+- **GitHub Repository**: `https://github.com/NeoGonsalves/lyftr-ai`
+- **Frontend**: `https://<your-frontend-url>` (e.g. Vercel / Render Static Site)
+- **Backend**: `https://<your-backend-url>` (e.g. Render Web Service / Railway)
 
-- Frontend: `https://<your-frontend-url>`
-- Backend: `https://<your-backend-url>`
+### Quick Deployment Instructions
+
+#### Backend Deployment (Render / Railway / Fly.io)
+1. Fork or push this repository to GitHub (`https://github.com/NeoGonsalves/lyftr-ai`).
+2. Create a new **Web Service** on [Render](https://render.com) (or use the provided `render.yaml`):
+   - **Environment**: Docker (Root Directory: `backend` or build context: `./backend`, Dockerfile: `backend/Dockerfile`).
+   - **Port**: `8000`
+   - **Health Check Path**: `/health`
+   - **Environment Variables**:
+     - `LLM_MODEL`: `groq/openai/gpt-oss-120b`
+     - `LLM_API_KEYS`: `<comma-separated-api-keys>`
+     - `DATABASE_URL`: `sqlite:////data/app.db`
+     - `LITELLM_CACHE_DIR`: `/data/litellm-cache`
+     - `ALLOWED_ORIGINS`: `*` (or your frontend domain)
+     - `ENABLE_FAILURE_SIMULATION`: `true`
+
+#### Frontend Deployment (Vercel / Netlify / Render)
+1. Create a new project on [Vercel](https://vercel.com) and import the repository.
+2. Set **Root Directory** to `frontend`.
+3. Set **Framework Preset** to `Vite`.
+4. Configure Environment Variable:
+   - `VITE_API_BASE_URL`: `https://<your-deployed-backend-url>`
+5. Deploy! Vercel will automatically build using `npm run build` with `vercel.json` rewrites.
 
 ## 2. Run locally: with Docker and without
 
@@ -99,8 +122,14 @@ The first command returns `503`; the second returns `404`. Inspect a valid sessi
 
 ## 5. Setup Used: your editor and AI tools
 
-Replace this section before submission with the editor and AI tools actually used for the assignment.
+- **Editor**: Visual Studio Code / Antigravity IDE
+- **AI Tools**: Antigravity AI Assistant, Groq (OpenAI-compatible high-speed inference)
+- **Runtimes & Tools**: Python 3.12/3.13, Node 22, Docker & Docker Compose, GitHub CLI
 
 ## 6. Bonus features (if any): what you added beyond the requirements and why
 
-No bonus features are required. The optional per-session system prompt is included because it is explicitly permitted in the assignment.
+- **Interactive Failover Simulation Header**: A dropdown in the UI allowing instant simulation of `key_1=429`, `key_1=500`, or `*=429` directly in the browser to demonstrate system resilience without terminal commands.
+- **Rich Markdown & Table Renderer**: Full support for formatted tables, bold text, code blocks, and bullet points using `marked` styled in high-contrast cyberpunk dark aesthetics.
+- **Per-Session System Prompt Drawer**: Interactive configuration field (`data-testid="system-prompt-input"`) mounted directly in the chat interface allowing dynamic personalization of the assistant's behavior.
+- **Quick Reply Suggestions & Emoji Selector**: Instant interactive chips (`"What is LYFTR AI?"`, `"Test key failover ⚡"`) and quick emoji picker tray.
+- **Collapsible / Minimizable Widget Launcher**: Interactive floating widget button allowing the chat window to be minimized or expanded at will.
