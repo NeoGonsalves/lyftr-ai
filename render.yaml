@@ -1,0 +1,32 @@
+services:
+  # Backend API Web Service
+  - type: web
+    name: lyftr-ai-backend
+    runtime: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    region: oregon
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:////data/app.db
+      - key: LITELLM_CACHE_DIR
+        value: /data/litellm-cache
+      - key: LLM_MODEL
+        value: groq/openai/gpt-oss-120b
+      - key: ENABLE_FAILURE_SIMULATION
+        value: "true"
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: LLM_API_KEYS
+        sync: false
+
+  # Frontend Static Site
+  - type: web
+    name: lyftr-ai-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
