@@ -27,8 +27,8 @@ class Settings:
         return cls(
             database_url=os.getenv("DATABASE_URL", "sqlite:////data/app.db"),
             llm_api_keys=_csv("LLM_API_KEYS"),
-            llm_model=os.getenv("LLM_MODEL", "gemini/gemini-3.8-flash"),
-            allowed_origins=_csv("ALLOWED_ORIGINS", "http://localhost:3000"),
+            llm_model=os.getenv("LLM_MODEL", "groq/openai/gpt-oss-120b"),
+            allowed_origins=_csv("ALLOWED_ORIGINS", "*"),
             enable_failure_simulation=os.getenv("ENABLE_FAILURE_SIMULATION", "false").lower() == "true",
             default_system_prompt=os.getenv("DEFAULT_SYSTEM_PROMPT", "You are a helpful assistant."),
             cache_dir=(

@@ -63,12 +63,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.llm_service = LiteLLMService(settings)
         yield
 
+    origins = list(settings.allowed_origins)
+    if not origins or "*" in origins:
+        origins = ["*"]
+
     app = FastAPI(title="LYFTR AI Chat API", lifespan=lifespan)
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=list(settings.allowed_origins) if "*" not in settings.allowed_origins else ["*"],
+        allow_origins=origins,
         allow_credentials=False,
-        allow_methods=["GET", "POST", "OPTIONS"],
+        allow_methods=["*"],
         allow_headers=["*"],
     )
 
